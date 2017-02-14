@@ -6,7 +6,7 @@
 ;; Maintainer: Alexander Yarygin <yarygin.alexander@gmail.com>
 ;; Version: 0.1
 ;; Homepage: https://github.com/zpp0/flycheck-checkpatch
-;; Package-Requires: ((emacs "25") (flycheck "30"))
+;; Package-Requires: ((emacs "25") (flycheck "31"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -58,7 +58,8 @@
    (error line-start (file-name) ":" line ": ERROR: " (message) line-end))
   :modes (c-mode)
   :working-directory flycheck-checkpatch-scripts-directory
-  :predicate flycheck-checkpatch-scripts-directory)
+  :predicate flycheck-checkpatch-scripts-directory
+  :stage style)
 
 ;;;###autoload
 (defun flycheck-checkpatch-setup ()
