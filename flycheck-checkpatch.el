@@ -40,15 +40,21 @@
 
 (defvar flycheck-checkpatch-scripts-directory "scripts")
 
-(defun flycheck-checkpatch-scripts-directory (&optional checker)
+(defvar flycheck-checkpatch-executable nil
+  "Path to checkpatch script for this buffer.")
+(make-variable-buffer-local 'flycheck-checkpatch-executable)
+
+(defun flycheck-checkpatch-scripts-directory ()
+  "Search up the directory tree for a scripts directory."
   (and (buffer-file-name)
        (locate-dominating-file (buffer-file-name)
                                flycheck-checkpatch-scripts-directory)))
 
 (defun flycheck-checkpatch-set-executable ()
+  "Locally set `flycheck-checkpatch-executable' point at checkpatch script."
   (when-let ((directory (flycheck-checkpatch-scripts-directory)))
-    (setq-local flycheck-checkpatch-executable
-		(concat directory flycheck-checkpatch-scripts-directory "/checkpatch.pl"))))
+    (setq flycheck-checkpatch-executable
+          (concat directory flycheck-checkpatch-scripts-directory "/checkpatch.pl"))))
 
 (flycheck-define-checker checkpatch
   "The Linux kernel (or qemu) checkpatch.pl checker"
